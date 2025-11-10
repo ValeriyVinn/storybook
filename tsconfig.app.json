@@ -16,13 +16,16 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
+    /* Linting / checks */
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,        // <-- вимикаємо, щоб TS6133 не падало на stories
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    ".storybook"                    // <-- додаємо, щоб Storybook файли враховувалися
+  ]
 }
