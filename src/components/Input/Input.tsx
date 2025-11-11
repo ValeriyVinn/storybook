@@ -5,7 +5,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   clearable?: boolean;
 }
 
-export const Input: React.FC<InputProps> = ({ type = 'text', clearable = false, value, onChange, ...props }) => {
+const Input: React.FC<InputProps> = ({ type = 'text', clearable = false, value, onChange, ...props }) => {
   const [inputValue, setInputValue] = useState(value || '');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,7 +21,6 @@ export const Input: React.FC<InputProps> = ({ type = 'text', clearable = false, 
   };
 
   const togglePassword = () => setShowPassword(!showPassword);
-
   const inputType = type === 'password' && showPassword ? 'text' : type;
 
   return (
@@ -46,3 +45,5 @@ export const Input: React.FC<InputProps> = ({ type = 'text', clearable = false, 
     </div>
   );
 };
+
+export default Input;

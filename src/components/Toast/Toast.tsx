@@ -4,18 +4,18 @@ import styles from "./Toast.module.css";
 interface ToastProps {
   message: string;
   type?: "success" | "error" | "info";
-  duration?: number; 
+  duration?: number;
   onClose: () => void;
   showClose?: boolean;
 }
 
-export const Toast = ({
+const Toast: React.FC<ToastProps> = ({
   message,
   type = "info",
   duration = 4000,
   onClose,
   showClose = true,
-}: ToastProps) => {
+}) => {
   useEffect(() => {
     const timer = setTimeout(onClose, duration);
     return () => clearTimeout(timer);
@@ -24,11 +24,7 @@ export const Toast = ({
   return (
     <div
       className={`${styles.toast} ${styles[type]}`}
-      style={
-        {
-          "--fade-delay": `${(duration - 1200) / 1000}s`,
-        } as React.CSSProperties
-      }
+      style={{ "--fade-delay": `${(duration - 1200) / 1000}s` } as React.CSSProperties}
     >
       <span>{message}</span>
       {showClose && (
@@ -40,3 +36,4 @@ export const Toast = ({
   );
 };
 
+export default Toast;

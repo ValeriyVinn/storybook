@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-import { SidebarMenu } from "../components/SidebarMenu/SidebarMenu";
+import SidebarMenu from "../components/SidebarMenu/SidebarMenu";
 import type { MenuItem } from "../components/SidebarMenu/SidebarMenu";
 
 const meta: Meta<typeof SidebarMenu> = {

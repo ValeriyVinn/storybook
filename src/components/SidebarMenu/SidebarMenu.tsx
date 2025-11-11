@@ -13,11 +13,7 @@ interface SidebarMenuProps {
   items: MenuItem[];
 }
 
-export const SidebarMenu: React.FC<SidebarMenuProps> = ({
-  isOpen,
-  onClose,
-  items,
-}) => {
+const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose, items }) => {
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
 
   const toggleSubmenu = (index: number) => {
@@ -33,9 +29,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
       {menuItems.map((item, index) => (
         <li key={index} className={styles.menuItem}>
           <div
-            className={`${styles.menuLabel} ${
-              item.children ? styles.hasChildren : ""
-            }`}
+            className={`${styles.menuLabel} ${item.children ? styles.hasChildren : ""}`}
             onClick={() => {
               if (item.children) toggleSubmenu(index + level * 100);
               else if (item.onClick) item.onClick();
@@ -67,12 +61,12 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <div className={styles.header}>
           <h3>Menu</h3>
-          <button className={styles.closeBtn} onClick={onClose}>
-            ✕
-          </button>
+          <button className={styles.closeBtn} onClick={onClose}>✕</button>
         </div>
         <nav className={styles.menu}>{renderMenu(items)}</nav>
       </aside>
     </>
   );
 };
+
+export default SidebarMenu;
