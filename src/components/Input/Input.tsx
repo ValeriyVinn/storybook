@@ -5,7 +5,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   clearable?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ type = 'text', clearable = false, value, onChange, ...props }) => {
+const Input: React.FC<InputProps> = ({
+  type = 'text',
+  clearable = false,
+  value,
+  onChange,
+  ...props
+}) => {
   const [inputValue, setInputValue] = useState(value || '');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -32,14 +38,26 @@ const Input: React.FC<InputProps> = ({ type = 'text', clearable = false, value, 
         onChange={handleChange}
         {...props}
       />
-      {type === 'password' && (
-        <button type="button" className={styles.iconButton} onClick={togglePassword}>
-          {showPassword ? '🙈' : '👁️'}
+
+      {clearable && inputValue && (
+        <button
+          type="button"
+          className={styles.iconButton}
+          onClick={handleClear}
+          style={{ right: type === 'password' ? '2rem' : '0.5rem' }}
+        >
+          ❌
         </button>
       )}
-      {clearable && inputValue && type !== 'password' && (
-        <button type="button" className={styles.iconButton} onClick={handleClear} style={{ right: '0.5rem' }}>
-          ❌
+
+      {type === 'password' && (
+        <button
+          type="button"
+          className={styles.iconButton}
+          onClick={togglePassword}
+          style={{ right: '0.5rem' }}
+        >
+          {showPassword ? '🙈' : '👁️'}
         </button>
       )}
     </div>
