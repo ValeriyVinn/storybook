@@ -7,11 +7,12 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
+  controls: { expanded: true },
   },
   argTypes: {
     type: {
       control: "select",
-      options: ["success", "error", "info"],
+      options: ["success", "error", "info","LongDuration"],
     },
     duration: {
       control: { type: "range", min: 1000, max: 8000, step: 500 },
@@ -28,7 +29,7 @@ export const Success: Story = {
   args: {
     message: "Operation completed successfully!",
     type: "success",
-    duration: 4000,
+    duration: 8000,
     onClose: noop,
   },
 };
