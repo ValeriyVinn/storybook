@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# React Component Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project contains three reusable **React components** with full **Storybook integration**.  
+Each component demonstrates interactive UI behavior, transitions, and real-world usability patterns.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧩 Components
 
-## React Compiler
+### 1. Input Component
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Behavior:**
+- Supports multiple input types (`text`, `password`, `number`)
+- If `type="password"` → shows an 👁️ icon to toggle visibility  
+- If `clearable=true` → shows ❌ button to clear input
 
-## Expanding the ESLint configuration
+**Storybook examples:**
+- Text input (default)
+- Password input with toggle
+- Clearable text input
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Screenshots:**
+- Default  
+  ![Input Default](src/stories/assets/input-default.png)
+- Password Toggle  
+  ![Input Password](src/stories/assets/input-password.png)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Toast Component
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Behavior:**
+- Appears at the bottom-right corner  
+- Auto-dismisses after a set duration  
+- Smooth fade-in / fade-out transitions  
+- Optional manual close button  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Storybook examples:**
+- Success / Error / Info states  
+- Different durations  
+- With / without manual close
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Screenshots:**
+- Success Toast  
+  ![Toast Success](src/stories/assets/toast-success.png)
+- Error Toast  
+  ![Toast Error](src/stories/assets/toast-error.png)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+### 3. Sidebar Menu Component
+
+**Behavior:**
+- Slides in from the right  
+- Renders nested submenus (accordion-style)  
+- Closes when clicking outside (background overlay)  
+
+**Storybook examples:**
+- Single-level menu  
+- Two-level nested menu  
+- Open / closed states
+
+**Screenshots:**
+- Closed  
+  ![Sidebar Closed](src/stories/assets/sidebar-closed.png)
+- Open with Nested Items  
+  ![Sidebar Open](src/stories/assets/sidebar-open.png)
+
+---
+
+## 📖 Storybook
+
+You can view and interact with all components directly in **Storybook**.
+
+**Run locally:**
+
+```bash
+npm install
+npm run storybook
+
+
+Storybook will open automatically at:
+👉 http://localhost:6006
+
+🧰 Tech Stack
+⚛️ React + TypeScript
+🎨 CSS Modules for scoped styling
+📚 Storybook for component documentation and testing
+

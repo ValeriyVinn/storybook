@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-import SidebarMenu from "../components/SidebarMenu/SidebarMenu";
+import  SidebarMenu  from "../components/SidebarMenu/SidebarMenu";
 import type { MenuItem } from "../components/SidebarMenu/SidebarMenu";
 
 const meta: Meta<typeof SidebarMenu> = {
@@ -15,7 +15,8 @@ export default meta;
 type Story = StoryObj<typeof SidebarMenu>;
 
 const Template = (args: React.ComponentProps<typeof SidebarMenu>) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <button
@@ -25,11 +26,14 @@ const Template = (args: React.ComponentProps<typeof SidebarMenu>) => {
           right: 20,
           padding: "8px 12px",
           zIndex: 2000,
+          fontSize: "16px",
+          cursor: "pointer",
         }}
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen((prev) => !prev)}
       >
-        Open Menu
+        {open ? "✕" : "Open Menu"}
       </button>
+
       <SidebarMenu {...args} isOpen={open} onClose={() => setOpen(false)} />
     </>
   );
