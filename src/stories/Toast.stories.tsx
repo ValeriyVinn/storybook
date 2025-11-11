@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import  Toast  from "../components/Toast/Toast";
+import Toast from "../components/Toast/Toast";
 
 const meta = {
   title: "Components/Toast",
   component: Toast,
   tags: ["autodocs"],
   parameters: {
-    layout: "centered",
-  controls: { expanded: true },
+    // layout: "centered",
+    controls: { expanded: true },
   },
   argTypes: {
     type: {
       control: "select",
-      options: ["success", "error", "info","LongDuration"],
+      options: ["success", "error", "info", "LongDuration"],
     },
     duration: {
       control: { type: "range", min: 1000, max: 8000, step: 500 },
@@ -23,7 +23,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const noop = () => {}; 
+const noop = () => {};
 
 export const Success: Story = {
   args: {

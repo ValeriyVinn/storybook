@@ -6,6 +6,7 @@ import type { MenuItem } from "../components/SidebarMenu/SidebarMenu";
 const meta: Meta<typeof SidebarMenu> = {
   title: "Components/SidebarMenu",
   component: SidebarMenu,
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },
