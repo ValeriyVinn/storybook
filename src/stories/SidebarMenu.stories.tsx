@@ -35,7 +35,12 @@ const Template = (args: React.ComponentProps<typeof SidebarMenu>) => {
         {open ? "✕" : "Open Menu"}
       </button>
 
-      <SidebarMenu {...args} isOpen={open} onClose={() => setOpen(false)} />
+      <SidebarMenu
+        {...args}
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        showCloseButton={false}
+      />
     </>
   );
 };
