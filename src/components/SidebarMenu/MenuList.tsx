@@ -9,9 +9,13 @@ interface MenuListProps {
   onItemClick: (item: MenuItem) => void;
 }
 
-const MenuList: React.FC<MenuListProps> = ({ items, openIds, onToggle, onItemClick }) => {
+const MenuList: React.FC<MenuListProps> = ({
+  items,
+  openIds,
+  onToggle,
+  onItemClick,
+}) => {
   return (
-   
     <ul className={styles.menuLevel}>
       {items.map((item) => {
         const hasChildren = !!item.children?.length;
@@ -21,14 +25,20 @@ const MenuList: React.FC<MenuListProps> = ({ items, openIds, onToggle, onItemCli
           <li key={item.id} className={styles.menuItem}>
             <div
               className={`${styles.menuLabel} ${hasChildren ? styles.hasChildren : ""}`}
-              onClick={() => hasChildren ? onToggle(item.id) : onItemClick(item)}
+              onClick={() =>
+                hasChildren ? onToggle(item.id) : onItemClick(item)
+              }
             >
               {item.label}
-              {hasChildren && <span className={styles.arrow}>{isOpen ? "▼" : "▶"}</span>}
+              {hasChildren && (
+                <span className={styles.arrow}>{isOpen ? "▼" : "▶"}</span>
+              )}
             </div>
 
-            {hasChildren && isOpen && (
-              <ul className={`${styles.menuLevel} ${styles.submenu}`}>
+            {hasChildren && (
+              <ul
+                className={`${styles.submenu} ${isOpen ? styles.open : styles.closed}`}
+              >
                 <MenuList
                   items={item.children!}
                   openIds={openIds}

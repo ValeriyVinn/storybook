@@ -9,11 +9,7 @@ interface SidebarMenuProps {
   isOpen: boolean;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({
-  items,
-  onClose,
-  isOpen,
-}) => {
+const SidebarMenu: React.FC<SidebarMenuProps> = ({ items, onClose, isOpen }) => {
   const [openIds, setOpenIds] = useState<string[]>([]);
 
   const handleToggle = (id: string) => {
@@ -23,23 +19,22 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   };
 
   const handleItemClick = (item: MenuItem) => {
-    console.log("Clicked:", item);
     if (!item.children) onClose();
   };
 
-  if (!isOpen) return null;
-
   return (
     <>
+      {/* Оверлей з анімацією */}
       <div
-        className={`${styles.overlay} ${isOpen ? styles.show : ""}`}
+        className={`${styles.overlay} ${isOpen ? styles.show : styles.hide}`}
         onClick={onClose}
       ></div>
 
-      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-        <button className={styles.closeBtn} onClick={onClose}>
-          ✖
-        </button>
+      {/* Сайдбар з анімацією */}
+      <aside
+        className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}
+      >
+        <button className={styles.closeBtn} onClick={onClose}>✖</button>
 
         <div className={styles.menuContainer}>
           <MenuList
