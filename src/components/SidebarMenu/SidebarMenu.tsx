@@ -1,69 +1,53 @@
 import React, { useState } from "react";
+import MenuList from "./MenuList";
+import type { MenuItem } from "./types";
 import styles from "./SidebarMenu.module.css";
 
-export interface MenuItem {
-  label: string;
-  children?: MenuItem[];
-  onClick?: () => void;
-}
-
 interface SidebarMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
   items: MenuItem[];
+  onClose: () => void;
+  isOpen: boolean;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose, items }) => {
-  const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+const SidebarMenu: React.FC<SidebarMenuProps> = ({ items, onClose, isOpen }) => {
+  const [openIds, setOpenIds] = useState<string[]>([]);
 
-  const toggleSubmenu = (index: number) => {
-    setOpenIndexes((prev) =>
-      prev.includes(index)
-        ? prev.filter((i) => i !== index)
-        : [...prev, index]
+  const handleToggle = (id: string) => {
+    setOpenIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   };
 
-  const renderMenu = (menuItems: MenuItem[], level = 0) => (
-    <ul className={styles.menuLevel}>
-      {menuItems.map((item, index) => (
-        <li key={index} className={styles.menuItem}>
-          <div
-            className={`${styles.menuLabel} ${item.children ? styles.hasChildren : ""}`}
-            onClick={() => {
-              if (item.children) toggleSubmenu(index + level * 100);
-              else if (item.onClick) item.onClick();
-            }}
-          >
-            {item.label}
-            {item.children && (
-              <span className={styles.arrow}>
-                {openIndexes.includes(index + level * 100) ? "▲" : "▼"}
-              </span>
-            )}
-          </div>
-          {item.children && openIndexes.includes(index + level * 100) && (
-            <div className={styles.submenu}>
-              {renderMenu(item.children, level + 1)}
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
-  );
+  const handleItemClick = (item: MenuItem) => {
+    console.log("Clicked:", item);
+    onClose();
+  };
 
   return (
     <>
+      {/* Оверлей */}
       <div
         className={`${styles.overlay} ${isOpen ? styles.show : ""}`}
         onClick={onClose}
       />
+
+      {/* Бічне меню */}
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <div className={styles.header}>
           <h3>Menu</h3>
-          <button className={styles.closeBtn} onClick={onClose}>✕</button>
+          <button className={styles.closeBtn} onClick={onClose}>
+            ✖
+          </button>
         </div>
-        <nav className={styles.menu}>{renderMenu(items)}</nav>
+
+        <nav className={styles.menu}>
+          <MenuList
+            items={items}
+            openIds={openIds}
+            onToggle={handleToggle}
+            onItemClick={handleItemClick}
+          />
+        </nav>
       </aside>
     </>
   );

@@ -3,7 +3,7 @@ import styles from "./App.module.css";
 import Input from './components/Input/Input';
 import SidebarMenu from './components/SidebarMenu/SidebarMenu';
 import Toast from './components/Toast/Toast';
-import type { MenuItem } from "./components/SidebarMenu/SidebarMenu";
+import type { MenuItem } from "./components/SidebarMenu/types";
 
 const App: React.FC = () => {
   const [toastVisible, setToastVisible] = useState(false);
@@ -11,17 +11,26 @@ const App: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
 
   const menuItems: MenuItem[] = [
-    { label: "Home" },
-    { label: "About" },
-    {
-      label: "Dashboard",
-      children: [
-        { label: "Overview" },
-        { label: "Settings", children: [{ label: "Profile" }, { label: "Security" }] },
-      ],
-    },
-    { label: "Contact" },
-  ];
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    children: [
+      { id: "overview", label: "Overview" },
+      { 
+        id: "settings", 
+        label: "Settings", 
+        children: [
+          { id: "profile", label: "Profile" },
+          { id: "security", label: "Security" }
+        ] 
+      },
+    ],
+  },
+  { id: "contact", label: "Contact" },
+];
+
 
   return (
     <div className={styles.app}>
