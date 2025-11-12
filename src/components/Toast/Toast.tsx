@@ -1,13 +1,7 @@
-import { useEffect } from "react";
+import React from "react";
 import styles from "./Toast.module.css";
-
-interface ToastProps {
-  message: string;
-  type?: "success" | "error" | "info";
-  duration?: number;
-  onClose: () => void;
-  showClose?: boolean;
-}
+import type { ToastProps } from "./types";
+import { useToastTimer } from "./useToastTimer";
 
 const Toast: React.FC<ToastProps> = ({
   message,
@@ -16,10 +10,7 @@ const Toast: React.FC<ToastProps> = ({
   onClose,
   showClose = true,
 }) => {
-  useEffect(() => {
-    const timer = setTimeout(onClose, duration);
-    return () => clearTimeout(timer);
-  }, [duration, onClose]);
+  useToastTimer(duration, onClose);
 
   return (
     <div
