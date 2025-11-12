@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-import  SidebarMenu  from "../components/SidebarMenu/SidebarMenu";
-import type { MenuItem } from "../components/SidebarMenu/SidebarMenu";
+import SidebarMenu from "../components/SidebarMenu/SidebarMenu";
+import type { MenuItem } from "../components/SidebarMenu/types";
 
 const meta: Meta<typeof SidebarMenu> = {
   title: "Components/SidebarMenu",
@@ -41,26 +41,28 @@ const Template = (args: React.ComponentProps<typeof SidebarMenu>) => {
 };
 
 const items1: MenuItem[] = [
-  { label: "Home" },
-  { label: "About" },
-  { label: "Contact" },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
 ];
 
 const items2: MenuItem[] = [
   {
+    id: "dashboard",
     label: "Dashboard",
     children: [
-      { label: "Overview" },
+      { id: "overview", label: "Overview" },
       {
+        id: "settings",
         label: "Settings",
         children: [
-          { label: "Profile" },
-          { label: "Security" },
+          { id: "profile", label: "Profile" },
+          { id: "security", label: "Security" },
         ],
       },
     ],
   },
-  { label: "Help" },
+  { id: "help", label: "Help" },
 ];
 
 export const OneLevel: Story = {
