@@ -10,26 +10,27 @@ const App: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const menuItems: MenuItem[] = [
+ const menuItems: MenuItem[] = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
   {
     id: "dashboard",
     label: "Dashboard",
     children: [
-      { id: "overview", label: "Overview" },
-      { 
-        id: "settings", 
-        label: "Settings", 
+      { id: "dashboard-overview", label: "Overview" },
+      {
+        id: "dashboard-settings",
+        label: "Settings",
         children: [
-          { id: "profile", label: "Profile" },
-          { id: "security", label: "Security" }
-        ] 
+          { id: "dashboard-settings-profile", label: "Profile" },
+          { id: "dashboard-settings-security", label: "Security" },
+        ],
       },
     ],
   },
   { id: "contact", label: "Contact" },
 ];
+
 
 
   return (

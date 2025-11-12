@@ -9,7 +9,11 @@ interface SidebarMenuProps {
   isOpen: boolean;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ items, onClose, isOpen }) => {
+const SidebarMenu: React.FC<SidebarMenuProps> = ({
+  items,
+  onClose,
+  isOpen,
+}) => {
   const [openIds, setOpenIds] = useState<string[]>([]);
 
   const handleToggle = (id: string) => {
@@ -20,34 +24,31 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ items, onClose, isOpen }) => 
 
   const handleItemClick = (item: MenuItem) => {
     console.log("Clicked:", item);
-    onClose();
+    if (!item.children) onClose();
   };
+
+  if (!isOpen) return null;
 
   return (
     <>
-      {/* Оверлей */}
       <div
         className={`${styles.overlay} ${isOpen ? styles.show : ""}`}
         onClick={onClose}
-      />
+      ></div>
 
-      {/* Бічне меню */}
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-        <div className={styles.header}>
-          <h3>Menu</h3>
-          <button className={styles.closeBtn} onClick={onClose}>
-            ✖
-          </button>
-        </div>
+        <button className={styles.closeBtn} onClick={onClose}>
+          ✖
+        </button>
 
-        <nav className={styles.menu}>
+        <div className={styles.menuContainer}>
           <MenuList
             items={items}
             openIds={openIds}
             onToggle={handleToggle}
             onItemClick={handleItemClick}
           />
-        </nav>
+        </div>
       </aside>
     </>
   );
