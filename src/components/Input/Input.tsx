@@ -1,9 +1,10 @@
-import React, { useState, type InputHTMLAttributes } from 'react';
+import React, { useState, useEffect } from 'react';
+import InputField from './InputField';
+import ClearButton from './ClearButton';
+import TogglePasswordButton from './TogglePasswordButton';
+import { createEmptyEvent } from './utils';
+import type { InputProps } from './types';
 import styles from './Input.module.css';
-
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  clearable?: boolean;
-}
 
 const Input: React.FC<InputProps> = ({
   type = 'text',
@@ -12,8 +13,18 @@ const Input: React.FC<InputProps> = ({
   onChange,
   ...props
 }) => {
-  const [inputValue, setInputValue] = useState(value || '');
+ 
+  const initial = value !== undefined ? String(value) : '';
+  const [inputValue, setInputValue] = useState<string>(initial);
   const [showPassword, setShowPassword] = useState(false);
+
+ 
+  useEffect(() => {
+    if (value !== undefined && String(value) !== inputValue) {
+      setInputValue(String(value));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -22,17 +33,15 @@ const Input: React.FC<InputProps> = ({
 
   const handleClear = () => {
     setInputValue('');
-    const event = { target: { value: '' } } as React.ChangeEvent<HTMLInputElement>;
-    onChange?.(event);
+    onChange?.(createEmptyEvent());
   };
 
-  const togglePassword = () => setShowPassword(!showPassword);
+  const togglePassword = () => setShowPassword((s) => !s);
   const inputType = type === 'password' && showPassword ? 'text' : type;
 
   return (
     <div className={styles.inputWrapper}>
-      <input
-        className={styles.inputField}
+      <InputField
         type={inputType}
         value={inputValue}
         onChange={handleChange}
@@ -40,28 +49,18 @@ const Input: React.FC<InputProps> = ({
       />
 
       {clearable && inputValue && (
-        <button
-          type="button"
-          className={styles.iconButton}
+        <ClearButton
           onClick={handleClear}
-          style={{ right: type === 'password' ? '2rem' : '0.5rem' }}
-        >
-          ❌
-        </button>
+          offsetRight={type === 'password' ? '2rem' : '0.5rem'}
+        />
       )}
 
       {type === 'password' && (
-        <button
-          type="button"
-          className={styles.iconButton}
-          onClick={togglePassword}
-          style={{ right: '0.5rem' }}
-        >
-          {showPassword ? '🙈' : '👁️'}
-        </button>
+        <TogglePasswordButton showPassword={showPassword} onClick={togglePassword} />
       )}
     </div>
   );
 };
 
 export default Input;
+
